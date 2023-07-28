@@ -1,2 +1,3 @@
 pydantic
-"uvicorn[standard]"
+fastapi
+uvicorn
