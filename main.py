@@ -1,9 +1,20 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pymongo import MongoClient
 from pydantic import BaseModel
 
 app = FastAPI()
 
 # http://127.0.0.1:8000/createWorkOrder
+# pip install fastapi uvicorn pymongo
+
+# Replace 'your_mongodb_uri' with your actual MongoDB connection string
+client = MongoClient('mongodb+srv://Adrian:bEyiBP4PsllpsylS@cluster0.wvmdahm.mongodb.net/?retryWrites=true&w=majority')
+
+# Replace 'your_database_name' with your desired database name
+db = client.wfm
+
+# Replace 'your_collection_name' with your desired collection name
+collection = db.orders
 
 class Order(BaseModel):
     Producto: str
@@ -18,17 +29,16 @@ class Order(BaseModel):
 
 @app.post("/createWorkOrder")
 def createWorkOrder(order: Order):
-    return {"message": f"Orden {order.NumOrdenServicio} creada"}
-
-    """
-    {
-        "Producto": "AltaServicio",
-        "Domicilio": "Honduras #759",
-        "Contacto": "Adrian Ceja",
-        "FechaAgendada": "21/07/2023",
-        "NumOrdenServicio": "123546789",
-        "TipoMovimientoFacilidades": "Alta",
-        "TipoModem": "Telmex",
-        "TipoTecnologia": "Fibra"
-    }
-    """
+    try:
+        # Create a new instance of the Item model
+        new_item = Order(**order.dict())
+        # Insert the new_item into the collection
+        insert_result = collection.insert_one(new_item.dict())
+        # Get the inserted document's ID
+        inserted_id = str(insert_result.inserted_id)
+        # Create the response message
+        response_message = f"Orden {order.NumOrdenServicio} creada"
+        # Return the response
+        return {"message": response_message, "inserted_id": inserted_id}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
