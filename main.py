@@ -18,7 +18,7 @@ def create_item():
     try:
         data = request.get_json()
         # Borramos antigua data
-        db.items.delete_many({})
+        collection.delete_many({})
         # Insert the new_item into the collection
         insert_result = collection.insert_one(data)
         # Get the inserted document's ID
