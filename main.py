@@ -37,3 +37,6 @@ def get_items():
         return dumps(list(collection.find()))
     except Exception as e:
         return {"Error al insertar": e}
+        
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=1000)  # Change the port to your desired value
