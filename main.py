@@ -32,7 +32,7 @@ def create_item():
 
 # Create a new item
 @app.route('/confirmarNotificacion', methods=['POST'])
-def create_item():
+def send_notification():
     try:
         data = request.get_json()
         # Return the response
