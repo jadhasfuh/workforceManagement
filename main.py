@@ -30,6 +30,16 @@ def create_item():
     except Exception as e:
         return {"Error al insertar": e}
 
+# Create a new item
+@app.route('/confirmarNotificacion', methods=['POST'])
+def create_item():
+    try:
+        data = request.get_json()
+        # Return the response
+        return data
+    except Exception as e:
+        return {"Error al insertar": e}
+
 # Get all items
 @app.route('/', methods=['GET'])
 def get_items():
