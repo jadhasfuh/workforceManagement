@@ -40,6 +40,20 @@ def send_notification():
     except Exception as e:
         return {"Error al insertar": e}
 
+# Cancelar orden
+@app.route('/cancelarOrden', methods=['POST'])
+def send_notification():
+    try:
+        data = request.get_json()
+        # Borramos antigua data
+        collection.delete_many({})
+        # Insert the new_item into the collection
+        insert_result = collection.insert_one(data)
+        # Return the response
+        return {"response": "200 OK"}
+    except Exception as e:
+        return {"Error al insertar": e}
+
 # Get all items
 @app.route('/', methods=['GET'])
 def get_items():
