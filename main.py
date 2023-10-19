@@ -28,7 +28,7 @@ def create_item():
         # Return the response
         return {"message": response_message, "inserted_id": inserted_id}
     except Exception as e:
-        return {"Error al insertar": e}
+        return {"response": "500 ERROR"}
 
 # Create a new item
 @app.route('/confirmarNotificacion', methods=['POST'])
@@ -38,7 +38,7 @@ def send_notification():
         # Return the response
         return data
     except Exception as e:
-        return {"Error al insertar": e}
+        return {"response": "500 ERROR"}
 
 # Cancelar orden
 @app.route('/cancelarOrdenWFM', methods=['POST'])
@@ -52,7 +52,7 @@ def cancelar_orden_WFM():
         # Return the response
         return {"response": "200 OK"}
     except Exception as e:
-        return {"Error al insertar": e}
+        return {"response": "500 ERROR"}
 
 # Get all items
 @app.route('/', methods=['GET'])
@@ -60,7 +60,7 @@ def get_items():
     try:
         return dumps(list(collection.find()))
     except Exception as e:
-        return {"Error al insertar": e}
+        return {"response": "500 ERROR"}
         
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1000)  # Change the port to your desired value
