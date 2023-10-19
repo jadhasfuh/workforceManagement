@@ -41,7 +41,7 @@ def send_notification():
         return {"Error al insertar": e}
 
 # Cancelar orden
-@app.route('/cancelarOrden', methods=['POST'])
+@app.route('/cancelarOrdenWFM', methods=['POST'])
 def send_notification():
     try:
         data = request.get_json()
