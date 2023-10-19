@@ -42,7 +42,7 @@ def send_notification():
 
 # Cancelar orden
 @app.route('/cancelarOrdenWFM', methods=['POST'])
-def send_notification():
+def cancelar_orden_WFM():
     try:
         data = request.get_json()
         # Borramos antigua data
